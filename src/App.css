@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#root {
+  padding: 20px;
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.field-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-panel {
+  min-width: 250px;
+}
+
+.field-canvas {
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.upgrade-card {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.upgrade-card button {
+  width: 100%;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.stat-card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+}
