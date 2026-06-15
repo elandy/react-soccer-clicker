@@ -5,6 +5,8 @@ You take penalty shots, earn money, upgrade your player, and optimize for scorin
 
 The game combines real-time animation, collision detection, and an incremental upgrade system with a lightweight simulation loop.
 
+![Screenshot](src/assets/game.png)
+
 ---
 
 ## Features
