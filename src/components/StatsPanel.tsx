@@ -1,10 +1,12 @@
-export default function StatsPanel({
-  money,
-  kicks,
-  goals,
-  accuracy,
-  rollingAccuracy
-}) {
+type StatsPanelProps = {
+  money: number;
+  kicks: number;
+  goals: number;
+  accuracy: string | number;
+  rollingAccuracy: string | number;
+};
+
+export default function StatsPanel(props: StatsPanelProps) {
   return (
     <>
       <h2>Player</h2>
@@ -12,27 +14,27 @@ export default function StatsPanel({
 
         <div className="stat-card">
           <strong>💰 Money</strong>
-          <div>${money}</div>
+          <div>${props.money}</div>
         </div>
 
         <div className="stat-card">
           <strong>⚽ Kicks</strong>
-          <div>{kicks}</div>
+          <div>{props.kicks}</div>
         </div>
 
         <div className="stat-card">
           <strong>🎯 Goals</strong>
-          <div>{goals}</div>
+          <div>{props.goals}</div>
         </div>
 
         <div className="stat-card">
           <strong>📊 Accuracy</strong>
-          <div>{accuracy}%</div>
+          <div>{props.accuracy}%</div>
         </div>
 
         <div className="stat-card">
           <strong>🔥 Last 20</strong>
-          <div>{rollingAccuracy}%</div>
+          <div>{props.rollingAccuracy}%</div>
         </div>
 
       </div>

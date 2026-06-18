@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ballSprite from '../assets/Soccer_ball.svg';
 
 import {
@@ -10,6 +10,16 @@ import {
   GOAL_HEIGHT
 } from '../game/constants';
 
+type Props = {
+  ballPos: { x: number; y: number };
+  keeperPos: { x: number; y: number };
+  ballRadius: number;
+  keeperRadius: number;
+  ballRotation: number;
+  aimWidth: number;
+  aimHeight: number;
+};
+
 export default function GameCanvas({
   ballPos,
   keeperPos,
@@ -18,12 +28,11 @@ export default function GameCanvas({
   ballRotation,
   aimWidth,
   aimHeight
-}) {
+}: Props) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const ballImageRef = useRef<HTMLImageElement | null>(null);
 
-  const canvasRef = useRef(null);
-
-  const ballImageRef = useRef(null);
-  const [spriteLoaded, setSpriteLoaded] = useState(false);
+  const [spriteLoaded, setSpriteLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const img = new Image();
@@ -38,22 +47,16 @@ export default function GameCanvas({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    if (!canvas) return;
 
-    ctx.clearRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Grass stripes
     for (let i = 0; i < 10; i++) {
-      ctx.fillStyle =
-        i % 2 === 0
-          ? '#2e8b57'
-          : '#3aa364';
-
+      ctx.fillStyle = i % 2 === 0 ? '#2e8b57' : '#3aa364';
       ctx.fillRect(
         0,
         i * (CANVAS_HEIGHT / 10),
@@ -93,13 +96,7 @@ export default function GameCanvas({
     const penaltySpotY = CANVAS_HEIGHT / 2;
 
     ctx.beginPath();
-    ctx.arc(
-      penaltySpotX,
-      penaltySpotY,
-      3,
-      0,
-      Math.PI * 2
-    );
+    ctx.arc(penaltySpotX, penaltySpotY, 3, 0, Math.PI * 2);
     ctx.fillStyle = 'white';
     ctx.fill();
 
@@ -118,12 +115,7 @@ export default function GameCanvas({
     ctx.lineWidth = 4;
     ctx.strokeStyle = 'white';
 
-    ctx.strokeRect(
-      GOAL_X,
-      GOAL_Y,
-      GOAL_WIDTH,
-      GOAL_HEIGHT
-    );
+    ctx.strokeRect(GOAL_X, GOAL_Y, GOAL_WIDTH, GOAL_HEIGHT);
 
     // AIM AREA (dashed rectangle)
     ctx.save();
@@ -135,15 +127,9 @@ export default function GameCanvas({
     const aimX = GOAL_X + GOAL_WIDTH / 2 - aimWidth / 2;
     const aimY = GOAL_Y + GOAL_HEIGHT / 2 - aimHeight / 2;
 
-    ctx.strokeRect(
-      aimX,
-      aimY,
-      aimWidth,
-      aimHeight
-    );
+    ctx.strokeRect(aimX, aimY, aimWidth, aimHeight);
 
     ctx.restore();
-
 
     // Goalkeeper
     ctx.beginPath();
@@ -158,14 +144,10 @@ export default function GameCanvas({
     ctx.fill();
 
     // Ball sprite
-    if (spriteLoaded) {
+    if (spriteLoaded && ballImageRef.current) {
       ctx.save();
 
-      ctx.translate(
-        ballPos.x,
-        ballPos.y
-      );
-
+      ctx.translate(ballPos.x, ballPos.y);
       ctx.rotate(ballRotation);
 
       ctx.drawImage(
@@ -178,8 +160,16 @@ export default function GameCanvas({
 
       ctx.restore();
     }
-
-  }, [ballPos, keeperPos, ballRadius, keeperRadius, ballRotation, spriteLoaded, aimWidth, aimHeight ]);
+  }, [
+    ballPos,
+    keeperPos,
+    ballRadius,
+    keeperRadius,
+    ballRotation,
+    spriteLoaded,
+    aimWidth,
+    aimHeight
+  ]);
 
   return (
     <canvas

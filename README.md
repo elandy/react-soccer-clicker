@@ -65,7 +65,7 @@ The project separates concerns into:
 - `game/` → physics, collision detection, constants, animations, sound
 - `components/` → UI + canvas rendering + Upgrades
 - `assets/` → game assets (images, sounds)
-- `App.jsx` → game state orchestration
+- `App.tsx` → game state orchestration
 
 The rendering loop is decoupled from React state updates where possible, using Canvas for drawing.
 

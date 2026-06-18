@@ -1,3 +1,27 @@
+type UpgradePanelProps = {
+  money: number;
+
+  trainingLevel: number;
+  ballUpgradeLevel: number;
+  goalieUpgradeLevel: number;
+  prizeUpgradeLevel: number;
+  aimLevel: number;
+
+  trainingCost: number;
+  ballCost: number;
+  goalieCost: number;
+  prizeCost: number;
+  aimCost: number;
+
+  rewardMultiplier: number;
+
+  buyTraining: () => void;
+  buyBallUpgrade: () => void;
+  buyGoalieUpgrade: () => void;
+  buyPrizeUpgrade: () => void;
+  buyAimUpgrade: () => void;
+};
+
 export default function UpgradePanel({
   money,
 
@@ -12,6 +36,7 @@ export default function UpgradePanel({
   goalieCost,
   prizeCost,
   aimCost,
+
   rewardMultiplier,
 
   buyTraining,
@@ -19,7 +44,7 @@ export default function UpgradePanel({
   buyGoalieUpgrade,
   buyPrizeUpgrade,
   buyAimUpgrade
-}) {
+}: UpgradePanelProps) {
   return (
     <>
       <h2>Upgrades</h2>
